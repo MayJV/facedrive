@@ -6,12 +6,13 @@ li = [False,False,True]
 index = li.index(True)
 print(index)
 
-l1 = []
-l2 = ['dd','dddd']
-l1.append(l2)
-print(l1)
 
-# a = np.array([2,3,4])
-a = None
-if len(a) > 0 :
-    print(11111111)
+l2 = ['dd','dddd']
+l2.append('ccc')
+
+print(l2)
+l1 = []
+
+for i in l2:
+    l1.append(i)
+print(l1)

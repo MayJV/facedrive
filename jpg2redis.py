@@ -1,5 +1,6 @@
 # _*_ coding:utf-8 _*_
 '''
+    人脸库建立
    jpg 提取特征值 存入redis
 '''
 
@@ -28,6 +29,7 @@ def listJPGFiles(path):
 if __name__ == '__main__':
     path = sys.argv[1]
     if not path :
+        print("python3.6 jpg2redis.py /data/facedb/drive1")
         exit(2)
     keyName = path.split('/')[-1]
     jpgPaths = listJPGFiles(path)
@@ -45,9 +47,8 @@ if __name__ == '__main__':
 
     inDict['codeList'] = codeList
     inDict['nameList'] = nameList
-    print(keyName,'  ',json.dumps(inDict, ensure_ascii=False))
     tt = RedisTT()
-    tt.r.delete(inDict)
-    print(inDict)
+    tt.r.delete(keyName)
+    print(keyName)
     tt.insertRedis(keyName,json.dumps(inDict, ensure_ascii=False))
 

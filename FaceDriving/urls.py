@@ -20,5 +20,5 @@ from facedeep import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('keystone/companyConcept', views.TargetSubGraph.as_view()), # 公司查询
+    path('faceCompare', views.FaceCompare.as_view()), # 人脸比较
 ]
