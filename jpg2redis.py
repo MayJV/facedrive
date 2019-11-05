@@ -7,7 +7,6 @@ import json
 import os
 import sys
 
-from FaceDriving.settings import ALLOWED_EXTENSIONS
 from facedeep.tools import FaceTools
 from facedeep.tools.ConRedis import RedisTT
 
@@ -46,6 +45,7 @@ if __name__ == '__main__':
 
     inDict['codeList'] = codeList
     inDict['nameList'] = nameList
+    print(keyName,'  ',json.dumps(inDict, ensure_ascii=False))
     tt = RedisTT()
     tt.insertRedis(keyName,json.dumps(inDict, ensure_ascii=False))
 
