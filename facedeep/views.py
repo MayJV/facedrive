@@ -29,7 +29,7 @@ class FaceCompare(generic.CreateView):
         print(filePath)
         print(os.path.exists('/data/facedb/drive1/海洋.jpg'))
 
-        print(os.path.exists(filePath.decode("gb2312")))
+        # print(os.path.exists(filePath.decode("gb2312")))
         print(os.path.exists(u'{}'.format(filePath)))
         if not os.path.exists(filePath):
             responseTools.responseCode(reJson, '404')
