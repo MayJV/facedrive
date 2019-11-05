@@ -20,10 +20,12 @@ if __name__ == '__main__':
     query_redis = tt.queryRedis('d3')
     print(type(query_redis))
 
-# al = ['a','b']
-# bm = {'a':['aa','ddd']}
-# r.lpush('d2',json.dumps(bm))
-# print(r.lrange('d3',0,-1))
+r = RedisTT().r
+bm = {'a':['aa','ddd']}
+r.lpush('d3',json.dumps(bm))
+
+# r.delete('d3')
+print(r.lrange('d3',0,-1))
 #
 # import face_recognition
 #
