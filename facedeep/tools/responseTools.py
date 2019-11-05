@@ -11,7 +11,7 @@ def responseCode(inDict,code):
         inDict['code'] = "400"
         inDict['msg'] = "Bad Request 参数错误"
     elif "404" == code:
-        inDict['code'] = "400"
+        inDict['code'] = "404"
         inDict['msg'] = "图片路径不正确"
     elif "201" == code:
         inDict['code'] = "202"

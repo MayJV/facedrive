@@ -25,6 +25,7 @@ class FaceCompare(generic.CreateView):
         if not driveName or not filePath:
             responseTools.responseCode(reJson, '400')
             return JsonResponse(reJson)
+        print(filePath)
         if not os.path.exists(filePath):
             responseTools.responseCode(reJson, '404')
             return JsonResponse(reJson)
@@ -62,4 +63,5 @@ class FaceCompare(generic.CreateView):
         reJson['result'] = result
         reJson['person'] = person
         reJson['driveName'] = driveName
+        responseTools.responseCode(reJson, '200')
         return JsonResponse(reJson)
