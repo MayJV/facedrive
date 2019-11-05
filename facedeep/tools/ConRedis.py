@@ -25,7 +25,7 @@ class RedisTT(object):
 # r.lpush('d3',json.dumps(bm))
 # #
 # r.delete('drive1')
-# print(r.lrange('drive1',0,-1))
+# print(r.lrange('cc',0,-1))
 #
 # import face_recognition
 #

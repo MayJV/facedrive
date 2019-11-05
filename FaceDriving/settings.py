@@ -25,7 +25,7 @@ SECRET_KEY = 'fh#6=dgqr(g(udkum7x+li-1t1-*j+y+t__fth6r)-fu61ppu-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

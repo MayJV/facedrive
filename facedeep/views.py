@@ -61,4 +61,5 @@ class FaceCompare(generic.CreateView):
 
         reJson['result'] = result
         reJson['person'] = person
+        reJson['driveName'] = driveName
         return JsonResponse(reJson)
