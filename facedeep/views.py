@@ -19,7 +19,7 @@ class FaceCompare(generic.CreateView):
         reJson ={}
         result = False
         person = ''
-        driveName = request.POST.get('driveName')
+        driveName = str(request.POST.get('driveName')).encode('utf-8')
         filePath = request.POST.get('filePath')
 
         if not driveName or not filePath:
@@ -27,7 +27,7 @@ class FaceCompare(generic.CreateView):
             return JsonResponse(reJson)
         print(filePath)
         print(os.path.exists('/data/facedb/drive1/海洋.jpg'))
-        print(os.path.exists(r'/data/facedb/drive1/海洋.jpg'))
+        print(os.path.exists(filePath))
         if not os.path.exists(filePath):
             responseTools.responseCode(reJson, '404')
             return JsonResponse(reJson)
