@@ -18,3 +18,5 @@ def jpg2FeatureCode(jpgPath):
 
     else:
         print('文件格式不对：' + jpgPath)
+
+    return []

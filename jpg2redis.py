@@ -39,7 +39,7 @@ if __name__ == '__main__':
         splitFile = jpgPath.split('/')
         jpgName = splitFile[len(splitFile) - 1].split('.')[0]
         code = FaceTools.jpg2FeatureCode(jpgPath)
-        if code:
+        if len(code) > 0:
             codeList.append(code.tolist())
             nameList.append(jpgName)
 
