@@ -7,7 +7,4 @@ dist
 nohup*
 projects/nohup*
 */___pycache__
-projects/var/*
-projects/static/ftp/*
-projects/static/icons/*
 __pycache__

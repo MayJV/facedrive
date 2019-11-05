@@ -118,3 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# redis 账号和密码
+REDIS_IP = '139.9.244.254'
+REDIS_PAWD = 'B46b31QZtuDlaj'
+# 允许 输入的图片格式
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
