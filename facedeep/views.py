@@ -27,7 +27,8 @@ class FaceCompare(generic.CreateView):
             return JsonResponse(reJson)
         print(filePath)
         print(os.path.exists('/data/facedb/drive1/海洋.jpg'))
-        print(os.path.exists(filePath.dencode('utf8').encode('cp936')))
+        # unicode(filePath, 'utf-8')
+        print(os.path.exists(filePath.encode("unicode_escape")))
         if not os.path.exists(filePath):
             responseTools.responseCode(reJson, '404')
             return JsonResponse(reJson)
