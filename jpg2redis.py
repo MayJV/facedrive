@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     inDict['codeList'] = codeList
     inDict['nameList'] = nameList
-    # print(keyName,'  ',json.dumps(inDict, ensure_ascii=False))
+    print(keyName,'  ',json.dumps(inDict, ensure_ascii=False))
     tt = RedisTT()
     tt.r.delete(inDict)
     print(inDict)
