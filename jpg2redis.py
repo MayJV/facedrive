@@ -32,12 +32,13 @@ if __name__ == '__main__':
         print("python3.6 jpg2redis.py /data/facedb/drive1")
         exit(2)
     keyName = path.split('/')[-1]
-    jpgPaths = listJPGFiles(path)
+    jpgPaths = listJPGFiles(path + '/tezhengku')
 
     inDict= {}
     codeList = []
     nameList = []
     for jpgPath in jpgPaths:
+        print('read jpg : ' + jpgPath)
         splitFile = jpgPath.split('/')
         jpgName = splitFile[len(splitFile) - 1].split('.')[0]
         code = FaceTools.jpg2FeatureCode(jpgPath)
