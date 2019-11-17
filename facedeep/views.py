@@ -27,10 +27,10 @@ class FaceCompare(generic.CreateView):
             responseTools.responseCode(reJson, '400')
             return JsonResponse(reJson)
         print(filePath)
-        print(os.path.exists('/data/facedb/drive1/海洋.jpg'))
+        # print(os.path.exists('/data/facedb/drive1/海洋.jpg'))
 
         # print(os.path.exists(filePath.decode("gb2312")))
-        print(os.path.exists(u'{}'.format(filePath)))
+        # print(os.path.exists(u'{}'.format(filePath)))
         if not os.path.exists(filePath):
             responseTools.responseCode(reJson, '404')
             return JsonResponse(reJson)
@@ -42,6 +42,10 @@ class FaceCompare(generic.CreateView):
             if len(code) < 1:
                 responseTools.responseCode(reJson, '201')
                 return JsonResponse(reJson)
+
+
+            if 'checkFace' == driveName:
+                responseTools.responseCode(reJson, '200')
 
             queryList = redisClient.queryRedis(driveName)
             # todo
