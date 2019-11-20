@@ -124,3 +124,4 @@ REDIS_IP = '139.9.244.254'
 REDIS_PAWD = 'B46b31QZtuDlaj'
 # 允许 输入的图片格式
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+TOLERANCE = 0.49

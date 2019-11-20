@@ -21,4 +21,5 @@ from facedeep import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('faceCompare', views.FaceCompare.as_view()), # 人脸比较
+    path('batchFaceCompare', views.BatchFaceCompare.as_view()), # 批量人脸比较
 ]
