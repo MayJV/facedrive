@@ -106,6 +106,7 @@ class BatchFaceCompare(generic.CreateView):
 
             # 遍历 路径集合
             for filePath in filePathList:
+                print('PATH: ==' + filePath + '==')
                 if not os.path.exists(filePath):
                     responseTools.responseCode(reJson, '404')
                     return JsonResponse(reJson)
