@@ -82,7 +82,7 @@ class BatchFaceCompare(generic.CreateView):
         result = []
         person = []
         driveName = request.POST.get('driveName')
-        filePathList = request.POST.get('filePath')
+        filePathList = request.POST.get('filePath').split(',')
 
         if not driveName or not filePathList:
             responseTools.responseCode(reJson, '400')
