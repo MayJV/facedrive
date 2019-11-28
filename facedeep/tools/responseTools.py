@@ -18,7 +18,7 @@ def responseCode(inDict,code):
         inDict['msg'] = "没有识别到人脸"
     elif "203" == code:
         inDict['code'] = "203"
-        inDict['msg'] = "driveName人脸库不存在"
+        inDict['msg'] = "driveName人脸库为空"
     elif "401" == code:
         inDict['code'] = "401"
         inDict['msg'] = "认证失败"

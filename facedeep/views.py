@@ -72,6 +72,9 @@ class FaceCompare(generic.CreateView):
                         result = True
                         index = resultList.index(True)
                         person = nameList[index]
+            else:
+                responseTools.responseCode(reJson, '203')
+                return JsonResponse(reJson)
 
         except Exception as e:
             print(traceback.format_exc())
