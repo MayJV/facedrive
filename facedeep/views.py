@@ -158,9 +158,13 @@ class BuildFace(generic.CreateView):
             return JsonResponse(reJson)
 
         try:
+            if not os.path.exists('/usr/local/upload/' + driveName + '/tezhengku'):
+                responseTools.responseCode(reJson, '404')
+                return JsonResponse(reJson)
 
             if AK != ak:
                 responseTools.responseCode(reJson, '401')
+                return JsonResponse(reJson)
 
             writeToRedis('/usr/local/upload/' + driveName)
 
