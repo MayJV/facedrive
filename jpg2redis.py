@@ -26,15 +26,11 @@ def listJPGFiles(path):
     return reList
 
 
-if __name__ == '__main__':
-    path = sys.argv[1]
-    if not path :
-        print("python3.6 jpg2redis.py /data/facedb/drive1")
-        exit(2)
+def writeToRedis(path):
     keyName = path.split('/')[-1]
     jpgPaths = listJPGFiles(path + '/tezhengku')
 
-    inDict= {}
+    inDict = {}
     codeList = []
     nameList = []
     for jpgPath in jpgPaths:
@@ -51,5 +47,14 @@ if __name__ == '__main__':
     tt = RedisTT()
     tt.r.delete(keyName)
     print(keyName)
-    tt.insertRedis(keyName,json.dumps(inDict, ensure_ascii=False))
+    tt.insertRedis(keyName, json.dumps(inDict, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    path = sys.argv[1]
+    if not path :
+        print("python3.6 jpg2redis.py /data/facedb/drive1")
+        exit(2)
+    writeToRedis(path)
+
 

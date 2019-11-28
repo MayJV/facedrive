@@ -11,11 +11,14 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import generic
 
-from FaceDriving.settings import TOLERANCE
+from FaceDriving.settings import TOLERANCE, AK
 from facedeep.tools import responseTools, FaceTools
 from facedeep.tools.ConRedis import RedisTT
 
 # 单条比对
+from jpg2redis import writeToRedis
+
+
 class FaceCompare(generic.CreateView):
     def post(self, request, *args, **kwargs):
         reJson = {}
@@ -49,7 +52,6 @@ class FaceCompare(generic.CreateView):
                 responseTools.responseCode(reJson, '200')
 
             queryList = redisClient.queryRedis(driveName)
-            # todo
 
             if queryList:
                 codeDB = []
@@ -145,3 +147,27 @@ class BatchFaceCompare(generic.CreateView):
         responseTools.responseCode(reJson, '200')
         return JsonResponse(reJson)
 
+# 构建人脸库
+class BuildFace(generic.CreateView):
+    def post(self, request, *args, **kwargs):
+        reJson = {}
+        ak = request.POST.get('ak')
+        driveName = request.POST.get('driveName')
+        if not ak or not driveName:
+            responseTools.responseCode(reJson, '400')
+            return JsonResponse(reJson)
+
+        try:
+
+            if AK != ak:
+                responseTools.responseCode(reJson, '401')
+
+            writeToRedis('/usr/local/upload/' + driveName)
+
+        except Exception as e:
+            print(traceback.format_exc())
+            print('input====', driveName, '   ',ak )
+            responseTools.responseCode(reJson, '202')
+
+        responseTools.responseCode(reJson, '200')
+        return JsonResponse(reJson)
