@@ -14,7 +14,7 @@ def responseCode(inDict,code):
         inDict['code'] = "404"
         inDict['msg'] = "图片路径不正确"
     elif "201" == code:
-        inDict['code'] = "202"
+        inDict['code'] = "201"
         inDict['msg'] = "没有识别到人脸"
     elif "203" == code:
         inDict['code'] = "400"

@@ -20,6 +20,7 @@ class FaceCompare(generic.CreateView):
     def post(self, request, *args, **kwargs):
         reJson = {}
         result = False
+        score = None
         person = ''
         driveName = request.POST.get('driveName')
         filePath = request.POST.get('filePath')
@@ -55,9 +56,15 @@ class FaceCompare(generic.CreateView):
                 redisJson = json.loads(queryList[0])
                 codeLists = redisJson.get('codeList')
                 nameList = redisJson.get('nameList')
+                # 对应驾校名下有 特征库
                 if codeLists:
                     for codeList in codeLists:
                         codeDB.append(np.asarray(codeList))
+                    print(nameList)
+                    core = face_recognition.face_distance(codeDB, code)
+                    print(core)
+                    # 提取最接近的照片
+                    score = min(core)
                     resultList = face_recognition.compare_faces(codeDB, code, tolerance=TOLERANCE)
                     if True in resultList:
                         result = True
@@ -70,6 +77,7 @@ class FaceCompare(generic.CreateView):
             responseTools.responseCode(reJson, '202')
 
         reJson['result'] = result
+        reJson['score'] = score
         reJson['person'] = person
         reJson['driveName'] = driveName
         responseTools.responseCode(reJson, '200')
