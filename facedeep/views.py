@@ -17,6 +17,7 @@ from facedeep.tools.ConRedis import RedisTT
 
 # 单条比对
 from jpg2redis import writeToRedis
+import logging
 
 
 class FaceCompare(generic.CreateView):
@@ -31,7 +32,7 @@ class FaceCompare(generic.CreateView):
         if not driveName or not filePath:
             responseTools.responseCode(reJson, '400')
             return JsonResponse(reJson)
-        print(filePath)
+        logging.warning(filePath)
         # print(os.path.exists('/data/facedb/drive1/海洋.jpg'))
 
         # print(os.path.exists(filePath.decode("gb2312")))
@@ -62,9 +63,9 @@ class FaceCompare(generic.CreateView):
                 if codeLists:
                     for codeList in codeLists:
                         codeDB.append(np.asarray(codeList))
-                    print(nameList)
+                    logging.warning(nameList)
                     core = face_recognition.face_distance(codeDB, code)
-                    print(core)
+                    logging.warning(core)
                     # 提取最接近的照片
                     score = min(core)
                     resultList = face_recognition.compare_faces(codeDB, code, tolerance=TOLERANCE)
