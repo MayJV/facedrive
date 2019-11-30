@@ -1,26 +1,39 @@
+import os
+import traceback
+
+from django.http import JsonResponse
 from django.test import TestCase
 
 # Create your tests here.
 import numpy as np
+from django.views import generic
 
-from facedeep.tools.ConRedis import RedisTT
-
-li = [False,False,True]
-index = li.index(True)
-print(index)
+from facedeep.tools import responseTools
 
 
-l2 = ['dd','dddd']
-l2.append('ccc')
+class BuildFace(generic.CreateView):
 
-print(l2)
-l1 = []
+    def get(self, request, *args, **kwargs):
+        print('---------------')
+        reJson = {}
+        ak = str(request.GET.get('ak'))
+        driveName = str(request.GET.get('driveName'))
+        print('driveName:' + driveName)
+        print('ak:' + ak)
+        if not ak or not driveName:
+            responseTools.responseCode(reJson, '400')
+            return JsonResponse(reJson)
 
-for i in l2:
-    l1.append(i)
-print(l1)
+        try:
 
+            # writeToRedis('/usr/local/upload/' + driveName)
+            print('driveName:' + driveName)
+            print('ak:' + ak)
 
+        except Exception as e:
+            print(traceback.format_exc())
+            print('input====', driveName, '   ',ak )
+            responseTools.responseCode(reJson, '202')
 
-r = RedisTT().r
-print(r.lrange('drive1',0,-1))
+        responseTools.responseCode(reJson, '200')
+        return JsonResponse(reJson)

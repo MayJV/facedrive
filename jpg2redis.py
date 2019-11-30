@@ -25,7 +25,9 @@ def listJPGFiles(path):
         print("ERROR: path is not true!!!!")
     return reList
 
-
+'''
+    读取文件夹 下图片 特征码存入redis
+'''
 def writeToRedis(path):
     keyName = path.split('/')[-1]
     jpgPaths = listJPGFiles(path + '/tezhengku')

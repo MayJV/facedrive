@@ -179,3 +179,29 @@ class BuildFace(generic.CreateView):
 
         responseTools.responseCode(reJson, '200')
         return JsonResponse(reJson)
+
+    def get(self, request, *args, **kwargs):
+        reJson = {}
+        ak = str(request.GET.get('ak'))
+        driveName = str(request.GET.get('driveName'))
+        if not ak or not driveName:
+            responseTools.responseCode(reJson, '400')
+            return JsonResponse(reJson)
+
+        try:
+            if not os.path.exists('/usr/local/upload/' + driveName + '/tezhengku'):
+                responseTools.responseCode(reJson, '404')
+                return JsonResponse(reJson)
+
+            if AK != ak:
+                responseTools.responseCode(reJson, '401')
+                return JsonResponse(reJson)
+
+            writeToRedis('/usr/local/upload/' + driveName)
+        except Exception as e:
+            print(traceback.format_exc())
+            print('input====', driveName, '   ',ak )
+            responseTools.responseCode(reJson, '202')
+
+        responseTools.responseCode(reJson, '200')
+        return JsonResponse(reJson)

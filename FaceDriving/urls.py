@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from facedeep import views
+from facedeep import views, tests
 
 urlpatterns = [
     path('admin/', admin.site.urls),
