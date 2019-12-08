@@ -74,7 +74,7 @@ class FaceCompare(generic.CreateView):
                     for bindex in range(len(core)):
                         if core[bindex] <= TOLERANCE:
                             score = core[bindex]
-                            print('score-----' + score)
+                            print('score-----' + str(score))
                             person = nameList[bindex]
                             ispass = getBaiDuScore(
                                 '/usr/local/upload/' + driveName + '/tezhengku/' + person + '.jpg', filePath)
