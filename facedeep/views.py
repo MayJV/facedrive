@@ -76,7 +76,7 @@ class FaceCompare(generic.CreateView):
                             score = core[bindex]
                             print('score-----' + str(score))
                             person = nameList[bindex]
-                            ispass = getBaiDuScore('/usr/local/upload/' + driveName + '/tezhengku/' + person.trim() + '.jpg', filePath)
+                            ispass = getBaiDuScore('/usr/local/upload/' + driveName + '/tezhengku/' + person + '.jpg', filePath)
                             if ispass:
                                 result = True
                                 break
