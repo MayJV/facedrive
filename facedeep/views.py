@@ -77,10 +77,14 @@ class FaceCompare(generic.CreateView):
                             print('score-----' + score)
                             person = nameList[bindex]
                             ispass = getBaiDuScore(
-                                '/usr/local/upload/' + driveName + '/tezhengku/' + person + 'jpg', filePath)
+                                '/usr/local/upload/' + driveName + '/tezhengku/' + person + '.jpg', filePath)
                             if ispass:
                                 result = True
                                 break
+                            else:
+                                score = None
+                                person = ''
+
 
             else:
                 responseTools.responseCode(reJson, '203')
@@ -101,7 +105,7 @@ class FaceCompare(generic.CreateView):
 
 def getBaiDuScore(jpg1, jpg2):
     logging.warning('bd:' + jpg1 + '=' + jpg2)
-    respone = requests.get('http://127.0.0.1:8090'+ jpg1 + '='+ jpg2)
+    respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
     loads = json.loads(respone.text)
     logging.warning(loads)
     data = loads.get('data')
