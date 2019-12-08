@@ -111,7 +111,7 @@ def getBaiDuScore(jpg1, jpg2):
     data = loads.get('data')
     if 'score' in data.keys():
         score = float(data.get('score'))
-        if score >= 60:
+        if score >= 70:
             return True
     else:
         return False
