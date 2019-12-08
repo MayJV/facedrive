@@ -4,7 +4,8 @@ import os
 import traceback
 import numpy as np
 import face_recognition
-
+import requests
+import json
 
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -33,10 +34,6 @@ class FaceCompare(generic.CreateView):
             responseTools.responseCode(reJson, '400')
             return JsonResponse(reJson)
         logging.warning(filePath)
-        # print(os.path.exists('/data/facedb/drive1/海洋.jpg'))
-
-        # print(os.path.exists(filePath.decode("gb2312")))
-        # print(os.path.exists(u'{}'.format(filePath)))
         if not os.path.exists(filePath):
             responseTools.responseCode(reJson, '404')
             return JsonResponse(reJson)
@@ -64,15 +61,27 @@ class FaceCompare(generic.CreateView):
                     for codeList in codeLists:
                         codeDB.append(np.asarray(codeList))
                     logging.warning(nameList)
-                    core = face_recognition.face_distance(codeDB, code)
+                    core = face_recognition.face_distance(codeDB, code).tolist()
                     logging.warning(core)
                     # 提取最接近的照片
-                    score = min(core)
-                    resultList = face_recognition.compare_faces(codeDB, code, tolerance=TOLERANCE)
-                    if True in resultList:
-                        result = True
-                        index = resultList.index(True)
-                        person = nameList[index]
+
+                    # resultList = face_recognition.compare_faces(codeDB, code, tolerance=TOLERANCE)
+                    # if True in resultList:
+                    #     result = True
+                    #     index = resultList.index(True)
+                    #     person = nameList[index]
+                    # score = min(core)
+                    for bindex in range(len(core)):
+                        if core[bindex] <= TOLERANCE:
+                            score = core[bindex]
+                            print('score-----' + score)
+                            person = nameList[bindex]
+                            ispass = getBaiDuScore(
+                                '/usr/local/upload/' + driveName + '/tezhengku/' + person + 'jpg', filePath)
+                            if ispass:
+                                result = True
+                                break
+
             else:
                 responseTools.responseCode(reJson, '203')
                 return JsonResponse(reJson)
@@ -88,6 +97,22 @@ class FaceCompare(generic.CreateView):
         reJson['driveName'] = driveName
         responseTools.responseCode(reJson, '200')
         return JsonResponse(reJson)
+
+
+def getBaiDuScore(jpg1, jpg2):
+    logging.warning('bd:' + jpg1 + '=' + jpg2)
+    respone = requests.get('http://127.0.0.1:8090'+ jpg1 + '='+ jpg2)
+    loads = json.loads(respone.text)
+    logging.warning(loads)
+    data = loads.get('data')
+    if 'score' in data.keys():
+        score = float(data.get('score'))
+        if score >= 60:
+            return True
+    else:
+        return False
+
+
 
 # 批量比对
 class BatchFaceCompare(generic.CreateView):
