@@ -125,7 +125,7 @@ REDIS_IP = '139.9.244.254'
 REDIS_PAWD = 'B46b31QZtuDlaj'
 # 允许 输入的图片格式
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-TOLERANCE = 0.39
+TOLERANCE = 0.41
 
 # 人脸库构建pawd
 AK = 'NVBK-QSPX-FXCT-RDFX'

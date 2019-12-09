@@ -82,7 +82,7 @@ class FaceCompare(generic.CreateView):
                                 break
 
                     if not result:
-                        score = None
+                        score = 0.69
                         person = ''
 
 
@@ -111,7 +111,7 @@ def getBaiDuScore(jpg1, jpg2):
     data = loads.get('data')
     if 'score' in data.keys():
         score = float(data.get('score'))
-        if score >= 70:
+        if score >= 80:
             return True
     else:
         return False
