@@ -26,6 +26,7 @@ class FaceCompare(generic.CreateView):
         reJson = {}
         result = False
         score = None
+        baidu_score = None
         person = ''
         driveName = request.POST.get('driveName')
         filePath = request.POST.get('filePath')
@@ -81,12 +82,14 @@ class FaceCompare(generic.CreateView):
                                 result = True
                                 break
                             else:
-                                score = 0.69
+                                baidu_score = 0.69
                                 person = ''
 
-                    if not result:
+                    if not result and baidu_score:
+                        score = baidu_score
+                    elif not result and baidu_score:
                         score = min(core)
-                        person = ''
+
 
 
             else:
@@ -107,6 +110,7 @@ class FaceCompare(generic.CreateView):
 
 
 def getBaiDuScore(jpg1, jpg2):
+    reBool = False
     logging.warning('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
     respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
     loads = json.loads(respone.text)
@@ -115,9 +119,8 @@ def getBaiDuScore(jpg1, jpg2):
     if 'score' in data.keys():
         score = float(data.get('score'))
         if score >= 80:
-            return True
-    else:
-        return False
+            reBool = True
+    return reBool
 
 
 
