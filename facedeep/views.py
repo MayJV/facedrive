@@ -13,10 +13,11 @@ from django.shortcuts import render
 from django.views import generic
 
 from FaceDriving.settings import TOLERANCE, AK
-from facedeep.tools import responseTools, FaceTools
+from facedeep.tools import responseTools, FaceTools,Opencvface
 from facedeep.tools.ConRedis import RedisTT
 
 # 单条比对
+from facedeep.tools.Opencvface import readFace
 from jpg2redis import writeToRedis
 import logging
 
@@ -43,7 +44,9 @@ class FaceCompare(generic.CreateView):
             redisClient = RedisTT()
 
             code = FaceTools.jpg2FeatureCode(filePath)
-            if len(code) < 1:
+            # 增加opencv 人脸识别验证
+            opencv_check = readFace(filePath)
+            if len(code) < 1 or not opencv_check:
                 responseTools.responseCode(reJson, '201')
                 return JsonResponse(reJson)
 

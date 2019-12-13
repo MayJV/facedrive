@@ -15,7 +15,7 @@ def responseCode(inDict,code):
         inDict['msg'] = "路径不正确"
     elif "201" == code:
         inDict['code'] = "202"
-        inDict['msg'] = "没有识别到人脸"
+        inDict['msg'] = "没有识别到人脸 或 清晰度不足"
     elif "203" == code:
         inDict['code'] = "203"
         inDict['msg'] = "driveName人脸库为空"
