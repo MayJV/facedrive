@@ -87,7 +87,7 @@ class FaceCompare(generic.CreateView):
 
                     if not result and baidu_score:
                         score = baidu_score
-                    elif not result and baidu_score:
+                    elif not result and not baidu_score:
                         score = min(core)
 
 
