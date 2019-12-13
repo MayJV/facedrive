@@ -80,9 +80,12 @@ class FaceCompare(generic.CreateView):
                             if ispass:
                                 result = True
                                 break
+                            else:
+                                score = 0.69
+                                person = ''
 
                     if not result:
-                        score = 0.69
+                        score = min(core)
                         person = ''
 
 
