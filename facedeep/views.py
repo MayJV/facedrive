@@ -95,8 +95,7 @@ class FaceCompare(generic.CreateView):
                         score = min(core)
                     # 不相似度过高 进行人脸检测
                     if score > 0.55:
-                        face = baiduIsFace('/usr/local/upload/' + driveName + '/tezhengku/' + person + '.jpg',
-                                           '/opt/baiduFace/test-face-api/2.jpg')
+                        face = baiduIsFace(filePath,'/opt/baiduFace/test-face-api/2.jpg')
                         if not face:
                             reJson = {}
                             responseTools.responseCode(reJson, '201')
@@ -144,7 +143,6 @@ def baiduIsFace(jpg1, jpg2):
         logging.warning('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
         respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
         loads = json.loads(respone.text)
-
         if 'errno' in loads.keys():
             errno = int(loads.get('errno'))
             if errno == 1008:
