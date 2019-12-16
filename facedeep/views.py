@@ -145,9 +145,8 @@ def baiduIsFace(jpg1, jpg2):
         respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
         loads = json.loads(respone.text)
 
-        data = loads.get('data')
-        if 'errno' in data.keys():
-            errno = int(data.get('errno'))
+        if 'errno' in loads.keys():
+            errno = int(loads.get('errno'))
             if errno == 1008:
                 reBool = False
                 logging.warning(loads)
