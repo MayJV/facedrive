@@ -45,8 +45,9 @@ class FaceCompare(generic.CreateView):
 
             code = FaceTools.jpg2FeatureCode(filePath)
             # 增加opencv 人脸识别验证
-            opencv_check = readFace(filePath)
-            if len(code) < 1 or not opencv_check:
+            # opencv_check = readFace(filePath)
+            # if len(code) < 1 or not opencv_check:
+            if len(code) < 1 :
                 responseTools.responseCode(reJson, '201')
                 return JsonResponse(reJson)
 
@@ -92,7 +93,14 @@ class FaceCompare(generic.CreateView):
                         score = baidu_score
                     elif not result and not baidu_score:
                         score = min(core)
-
+                    # 不相似度过高 进行人脸检测
+                    if score > 0.55:
+                        face = baiduIsFace('/usr/local/upload/' + driveName + '/tezhengku/' + person + '.jpg',
+                                           '/opt/baiduFace/test-face-api/2.jpg')
+                        if not face:
+                            reJson = {}
+                            responseTools.responseCode(reJson, '201')
+                            return JsonResponse(reJson)
 
 
             else:
@@ -114,15 +122,39 @@ class FaceCompare(generic.CreateView):
 
 def getBaiDuScore(jpg1, jpg2):
     reBool = False
-    logging.warning('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
-    respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
-    loads = json.loads(respone.text)
-    logging.warning(loads)
-    data = loads.get('data')
-    if 'score' in data.keys():
-        score = float(data.get('score'))
-        if score >= 80:
-            reBool = True
+    try:
+        logging.warning('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
+        respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
+        loads = json.loads(respone.text)
+        logging.warning(loads)
+        data = loads.get('data')
+        if 'score' in data.keys():
+            score = float(data.get('score'))
+            if score >= 80:
+                reBool = True
+    except Exception as e:
+        logging.warning('-- restart baidu server---')
+        os.system("ps -aux | grep '/opt/baiduFace/test-face-api/main' | grep -v grep | awk '{print $2}' | xargs kill -9")
+        print(traceback.format_exc())
+    return reBool
+
+def baiduIsFace(jpg1, jpg2):
+    reBool = True
+    try:
+        logging.warning('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
+        respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
+        loads = json.loads(respone.text)
+
+        data = loads.get('data')
+        if 'errno' in data.keys():
+            errno = int(data.get('errno'))
+            if errno == 1008:
+                reBool = False
+                logging.warning(loads)
+    except Exception as e:
+        logging.warning('-- restart baidu server---')
+        os.system("ps -aux | grep '/opt/baiduFace/test-face-api/main' | grep -v grep | awk '{print $2}' | xargs kill -9")
+        print(traceback.format_exc())
     return reBool
 
 
