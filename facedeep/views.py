@@ -138,6 +138,8 @@ def getBaiDuScore(jpg1, jpg2):
         os.system('sh /root/zhangxin/killmain.sh')
         os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
         print(traceback.format_exc())
+    s = requests.session()
+    s.keep_alive = False
     return reBool
 
 def baiduIsFace(jpg1, jpg2):
@@ -157,6 +159,8 @@ def baiduIsFace(jpg1, jpg2):
         os.system('sh /root/zhangxin/killmain.sh')
         os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
         print(traceback.format_exc())
+    s = requests.session()
+    s.keep_alive = False
     return reBool
 
 
