@@ -6,7 +6,7 @@ import redis
 
 class RedisTT(object):
     def __init__(self):
-        self.r = redis.Redis(host=REDIS_IP, port=6397, decode_responses=True,password=REDIS_PAWD)
+        self.r = redis.Redis(host=REDIS_IP, port=6397, decode_responses=True,password=REDIS_PAWD,db=1)
 
     def insertRedis(self,keyName,jsonStr):
         self.r.lpush(keyName,jsonStr)
