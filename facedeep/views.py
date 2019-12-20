@@ -137,8 +137,8 @@ def getBaiDuScore(jpg1, jpg2):
     except Exception as e:
         logging.warning('-- restart baidu server---')
         # os.system("ps -aux | grep '/opt/baiduFace/test-face-api/main' | grep -v grep | awk '{print $2}' | xargs kill -9")
-        os.system('sh /root/zhangxin/killmain.sh')
-        os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
+        # os.system('sh /root/zhangxin/killmain.sh')
+        # os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
         print(traceback.format_exc())
 
     return reBool
@@ -159,8 +159,8 @@ def baiduIsFace(jpg1, jpg2):
     except Exception as e:
         logging.warning('-- restart baidu server---')
         # os.system("ps -aux | grep '/opt/baiduFace/test-face-api/main' | grep -v grep | awk '{print $2}' | xargs kill -9")
-        os.system('sh /root/zhangxin/killmain.sh')
-        os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
+        # os.system('sh /root/zhangxin/killmain.sh')
+        # os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
         print(traceback.format_exc())
 
     return reBool
