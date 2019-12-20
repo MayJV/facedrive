@@ -124,7 +124,9 @@ def getBaiDuScore(jpg1, jpg2):
     reBool = False
     try:
         logging.warning('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
-        respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
+        s = requests.session()
+        s.keep_alive = False
+        respone = s.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
         loads = json.loads(respone.text)
         logging.warning(loads)
         data = loads.get('data')
@@ -138,15 +140,16 @@ def getBaiDuScore(jpg1, jpg2):
         os.system('sh /root/zhangxin/killmain.sh')
         os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
         print(traceback.format_exc())
-    s = requests.session()
-    s.keep_alive = False
+
     return reBool
 
 def baiduIsFace(jpg1, jpg2):
     reBool = True
     try:
         logging.warning('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
-        respone = requests.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
+        s = requests.session()
+        s.keep_alive = False
+        respone = s.get('http://127.0.0.1:8090' + jpg1 + '='+ jpg2)
         loads = json.loads(respone.text)
         if 'errno' in loads.keys():
             errno = int(loads.get('errno'))
@@ -159,8 +162,7 @@ def baiduIsFace(jpg1, jpg2):
         os.system('sh /root/zhangxin/killmain.sh')
         os.system('sh /opt/baiduFace/test-face-api/start_main.sh')
         print(traceback.format_exc())
-    s = requests.session()
-    s.keep_alive = False
+
     return reBool
 
 
